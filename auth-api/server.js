@@ -1,0 +1,17 @@
+require('dotenv').config()
+const express=require('express')
+const mongoose=require('mongoose')
+const authRoutes=require('./routes/auth')
+const app=express()
+app.use(express.json())
+mongoose.connect(process.env.MONGO_URI)
+.then(()=>console.log('MongoDB connected'))
+.catch(err=>console.log('Error',err))
+app.use('/api/auth',authRoutes)
+const protect=require('./middleware/auth')
+app.get('/api/profile',protect,(req,res)=>{
+    res.json({message:'Welcome!',user:req.user})
+})
+app.listen(process.env.PORT,()=>{
+    console.log(`Server running on port ${process.env.PORT}`)
+})
