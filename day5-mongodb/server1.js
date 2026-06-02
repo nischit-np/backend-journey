@@ -62,7 +62,7 @@ app.get('/students/:id',async(req,res)=>{
 app.put('/students/:id', async(req,res)=>{
     try{
         const student=await Student.findByIdAndUpdate(req.params.id,req.body,{new:true})
-        res.json({message:"Updated students: ", student})
+        res.json({message:"Updated students: ", student)
         
     }
     catch(err)
