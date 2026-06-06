@@ -1,0 +1,13 @@
+require('dotenv').config()
+const express=require('express')
+const mongoose=require('mongoose')
+const studentRoutes=require('./routes/student')
+const app=express()
+app.use(express.json())
+mongoose.connect(process.env.MONGO_URI)
+.then(()=>console.log('Mongoose connected'))
+.catch(err=>console.log('Error',err))
+app.use('/students',studentRoutes)
+app.listen(process.env.PORT,()=>{
+  console.log(`Server running on port ${process.env.PORT}`)
+})
