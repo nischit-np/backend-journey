@@ -10,7 +10,26 @@ app.use(express.json())
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.log(err))
-
+app.get('/', (req, res) => {
+  res.json({
+    message: 'Task API is running!',
+    developer: 'Nischit',
+    github: 'https://github.com/nischit-np',
+    endpoints: {
+      auth: {
+        register: 'POST /api/auth/register',
+        login: 'POST /api/auth/login'
+      },
+      posts: {
+        getAllPosts: 'GET /api/posts',
+        getPost: 'GET /api/posts/:id',
+        createPost: 'POST /api/posts (protected)',
+        updatePost: 'PUT /api/posts/:id (protected)',
+        deletePost: 'DELETE /api/posts/:id (protected)'
+      }
+    }
+  })
+})
 app.get('/', (req, res) => {
   res.json({
     message: 'Task Manager API is running!',
